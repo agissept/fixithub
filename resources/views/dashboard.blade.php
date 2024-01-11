@@ -48,18 +48,24 @@
             </div>
         </div>
 
-        <textarea class="resize-none w-full rounded-[12px] border-gray-200 h-[150px] mt-[22px]"
-                  placeholder="Posting masalah gadget kamu di sini!"></textarea>
+        <form action="{{{route('dashboard')}}}" method="POST" class="flex flex-col">
+            @csrf
+            <textarea class="resize-none w-full rounded-[12px] border-gray-200 h-[150px] mt-[22px]"
+                      placeholder="Posting masalah gadget kamu di sini!"
+                      name="thread_content"></textarea>
 
-        <x-primary-button class="ml-auto mt-3 w-fit">Posting</x-primary-button>
+            <x-primary-button class="ml-auto mt-3 w-fit">Posting</x-primary-button>
+        </form>
 
         <div>
-            <div class="rounded-[12px] mt-5 bg-white p-[23px]">
-                <span class="font-bold">Seseorang</span>
-                <p class="mt-3">
-                    Duh hp OPPQ mentok di logo nih, sebelum aku bawa ke teknisi kira kira ada solusi gak ya ?
-                </p>
-            </div>
+            @foreach($threads as $thread)
+                <div class="rounded-[12px] mt-5 bg-white p-[23px]">
+                    <span class="font-bold">{{{ $thread->username }}}</span>
+                    <p class="mt-3">
+                        {{{ $thread->content }}}
+                    </p>
+                </div>
+            @endforeach
         </div>
     </div>
 </x-app-layout>
