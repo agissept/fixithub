@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <form action="{{{route('dashboard')}}}" method="POST" class="flex flex-col">
+        <form action="{{{route('threads.store')}}}" method="POST" class="flex flex-col">
             @csrf
             <textarea class="resize-none w-full rounded-[12px] border-gray-200 h-[150px] mt-[22px]"
                       placeholder="Posting masalah gadget kamu di sini!"
@@ -59,12 +59,13 @@
 
         <div>
             @foreach($threads as $thread)
-                <div class="rounded-[12px] mt-5 bg-white p-[23px]">
+                <a href="{{{ route('threads.show', ['id' => $thread->id]) }}}"
+                   class="rounded-[12px] mt-5 bg-white p-[23px] block">
                     <span class="font-bold">{{{ $thread->username }}}</span>
                     <p class="mt-3">
                         {{{ $thread->content }}}
                     </p>
-                </div>
+                </a>
             @endforeach
         </div>
     </div>
