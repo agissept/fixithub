@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Thread;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -13,7 +11,9 @@ class DashboardController extends Controller
     {
         $threads = Thread::query()
             ->join('users','users.id', '=', 'user_id')
+            ->whereNull('parent_id')
             ->select([
+                'threads.id as id',
                 'users.name as username',
                 'content'
             ])
@@ -21,14 +21,5 @@ class DashboardController extends Controller
         return view('dashboard', [
             'threads' => $threads
         ]);
-    }
-
-    public function store(Request $request): RedirectResponse
-    {
-        Thread::create([
-            'user_id' => auth()->id(),
-            'content' => $request->thread_content
-        ]);
-        return redirect()->route('dashboard');
     }
 }
