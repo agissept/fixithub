@@ -14,6 +14,9 @@ WORKDIR /app
 COPY --from=BuildStageFrontend /app/ /app
 
 RUN composer install --optimize-autoloader --no-dev
+RUN php artisan config:cache
+RUN php artisan route:cache
+RUN php artisan view:cache
 
 FROM php:8.2-fpm
 
@@ -36,7 +39,3 @@ RUN docker-php-ext-install pcntl
 
 
 COPY --from=BuildStageBackend /app/ /app
-
-RUN php artisan config:cache
-RUN php artisan route:cache
-RUN php artisan view:cache
