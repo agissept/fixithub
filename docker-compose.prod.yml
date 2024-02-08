@@ -1,0 +1,20 @@
+services:
+  fixithub-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: fixithub
+    volumes:
+      - '.:/var/www/html'
+  nginx:
+    image: nginx:alpine
+    container_name: fixithub-nginx
+    restart: unless-stopped
+    ports:
+      - 4444:80
+    volumes:
+      - .:/var/www/html
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+      - /var/www/html/public/hot
+    depends_on:
+      - fixithub-web
