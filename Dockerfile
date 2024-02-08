@@ -26,6 +26,10 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
         libpng-dev libicu-dev zlib1g-dev libzip-dev \
         pkg-config libmcrypt-dev iputils-ping  && \
         apt-get clean -y
+
+RUN apt-get install -y libpq-dev \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo pdo_pgsql pgsql
 # install php module
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install bz2
@@ -36,6 +40,5 @@ RUN docker-php-ext-configure intl; \
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install pcntl
-
 
 COPY --from=BuildStageBackend /app/ /app
