@@ -6,6 +6,7 @@ services:
     image: fixithub
     volumes:
       - fixithub-volume:/app
+      - fixithub-volume:/var/www/html
   nginx:
     image: nginx:alpine
     container_name: fixithub-nginx
@@ -13,6 +14,7 @@ services:
     ports:
       - 4444:80
     volumes:
+      - fixithub-volume:/app
       - fixithub-volume:/var/www/html
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     depends_on:

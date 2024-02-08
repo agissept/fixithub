@@ -39,3 +39,6 @@ RUN docker-php-ext-install pcntl
 
 
 COPY --from=BuildStageBackend /app/ /app
+
+RUN chmod -R gu+w storage
+RUN chmod -R guo+w storage
