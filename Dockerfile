@@ -11,8 +11,6 @@ FROM composer:2.6 AS BuildStageBackend
 
 WORKDIR /app
 
-RUN rm /app/public/build/hot
-
 COPY --from=BuildStageFrontend /app/ /app
 
 RUN composer install --optimize-autoloader --no-dev
