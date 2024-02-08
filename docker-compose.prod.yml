@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     image: fixithub
     volumes:
-      - '.:/var/www/html'
+      - fixithub-volume:/app
   nginx:
     image: nginx:alpine
     container_name: fixithub-nginx
@@ -13,8 +13,10 @@ services:
     ports:
       - 4444:80
     volumes:
-      - .:/var/www/html
+      - fixithub-volume:/var/www/html
       - ./docker-compose/nginx:/etc/nginx/conf.d/
-      - /var/www/html/public/hot
     depends_on:
       - fixithub-web
+volumes:
+  fixithub-volume:
+    driver: local
