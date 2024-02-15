@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/shops/{id}', [ShopController::class, 'show'])->name('shop.show');
     Route::put('/shop', [ShopController::class, 'update'])->name('shop.update');
 
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('transaction.index');
     Route::post('/transaction/store', [TransactionController::class, 'store'])->name('transaction.store');
 });
 
