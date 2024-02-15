@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Enum\PickUpMethod;
 use App\Http\Enum\TransactionStatus;
+use App\Http\Enum\UserRole;
 use App\Models\Transaction;
 use App\Models\TransactionStatusHistory;
 use Illuminate\Contracts\View\Factory;
@@ -29,9 +30,13 @@ class TransactionController extends Controller
             ->leftJoin('transaction_status_histories as histories', function ($join) {
                 $join->on('histories.transaction_id', '=', 'transactions.id')
                     ->whereRaw('histories.id = (SELECT MAX(id) FROM transaction_status_histories WHERE transaction_id = transactions.id)');
-            })
-            ->where('shops.user_id', Auth::id())
-            ->groupBy('transactions.id')
+            });
+        if (\auth()->user()->role === UserRole::CUSTOMER->value) {
+            $transactions->where('transactions.user_id', Auth::id());
+        } else {
+            $transactions->where('shops.user_id', Auth::id());
+        }
+        $transactions = $transactions->groupBy('transactions.id')
             ->get([
                 'transactions.id',
                 'users.name as customer_username',
