@@ -55,13 +55,18 @@ class TransactionController extends Controller
         $transaction = Transaction::query()
             ->join('shops', 'shops.id', '=', 'transactions.shop_id')
             ->join('users', 'users.id', '=', 'transactions.user_id')
-            ->where('shops.user_id', Auth::id())
-            ->where('transactions.id', $id)
-            ->first([
-                'transactions.id',
-                'users.name as customer_username',
-                'transactions.created_at',
-            ]);
+            ->where('transactions.id', $id);
+        if (\auth()->user()->role === UserRole::CUSTOMER->value) {
+            $transaction->where('transactions.user_id', Auth::id());
+        } else {
+            $transaction->where('shops.user_id', Auth::id());
+        }
+        $transaction = $transaction->first([
+            'transactions.id',
+            'users.name as customer_username',
+            'transactions.created_at',
+            'shops.phone_number as shop_phone_number',
+        ]);
 
         $transaction->status = TransactionStatusHistory::query()
             ->where('transaction_id', $id)
