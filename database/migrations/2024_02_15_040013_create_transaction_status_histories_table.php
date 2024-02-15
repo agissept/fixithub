@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('transaction_id')->constrained('transactions');
             $table->string('status');
+            $table->text('description')->nullable();
+            $table->text('image')->nullable();
             $table->timestamps();
         });
     }
