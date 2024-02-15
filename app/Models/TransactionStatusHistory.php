@@ -9,6 +9,8 @@ class TransactionStatusHistory extends Model
     protected $fillable = [
         'transaction_id',
         'status',
+        'image',
+        'description',
         'created_at',
     ];
 }
