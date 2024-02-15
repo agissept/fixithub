@@ -23,8 +23,18 @@
                 </svg>
 
                 <div class="ml-3">
-                    <h3 class="font-bold color-blue-primary">{{ $transaction->customer_username }}</h3>
-                    <p class="text-sm">{{ $transaction->customer_phone_number ?? '089533665544' }}</p>
+                    <h3 class="font-bold color-blue-primary">
+                        @if(auth()->user()->role === \App\Http\Enum\UserRole::CUSTOMER->value)
+                            Perbaikan di {{ $transaction->shop_name }}
+                        @else
+                            {{ $transaction->customer_username }}
+                        @endif
+
+
+                    </h3>
+                    @if(auth()->user()->role === \App\Http\Enum\UserRole::SERVICE_OWNER->value)
+                        <p class="text-sm">{{ $transaction->customer_phone_number ?? '089533665544' }}</p>
+                    @endif
                     <p class="text-sm">{{ $transaction->created_at }}</p>
                 </div>
                 <div class="ml-auto">
