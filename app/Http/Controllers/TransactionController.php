@@ -63,6 +63,10 @@ class TransactionController extends Controller
             ->first()
             ->status;
 
+        $transaction->progress_histories = TransactionStatusHistory::query()
+            ->where('transaction_id', $id)
+            ->get();
+
         return view('transaction.detail', [
             'transaction' => $transaction,
         ]);
@@ -93,11 +97,13 @@ class TransactionController extends Controller
 
     public function updateProgress(int $id): RedirectResponse
     {
-        $transactionStatus = TransactionStatusHistory::find($id);
-        $transactionStatus->status = $this->request->transaction_status;
-        $transactionStatus->description = $this->request->description;
-        $transactionStatus->image = $this->uploadImage($this->request->file('image'));
-        $transactionStatus->save();
+        TransactionStatusHistory::create([
+            'transaction_id' => $id,
+            'status' => $this->request->transaction_status,
+            'description' => $this->request->description,
+            'image' => $this->uploadImage($this->request->file('image')),
+            'created_at' => now(),
+        ]);
 
         return redirect()->route('transaction.show', ['id' => $id]);
     }
