@@ -100,7 +100,7 @@
                 @endforeach
             </div>
         </div>
-        @if(auth()->user()->role === \App\Http\Enum\UserRole::SERVICE_OWNER)
+        @if(auth()->user()->role === \App\Http\Enum\UserRole::SERVICE_OWNER->value)
             <form class=" bg-white rounded-[11px] p-5 mt-5 block" method="POST"
                   action="{{route('transaction.update.progress', [$transaction->id])}}"
                   enctype="multipart/form-data">
