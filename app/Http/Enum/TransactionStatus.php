@@ -3,6 +3,7 @@
 namespace App\Http\Enum;
 
 enum TransactionStatus {
+    case REJECTED;
     case WAITING_CONFIRMATION;
     case CONFIRMED;
     case PICK_UP_PROCESS;
