@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -43,6 +44,24 @@ class TransactionController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        $transaction = Transaction::query()
+            ->join('shops', 'shops.id', '=', 'transactions.shop_id')
+            ->join('users', 'users.id', '=', 'transactions.user_id')
+            ->where('shops.user_id', Auth::id())
+            ->where('transactions.id', $id)
+            ->first([
+                'transactions.id',
+                'users.name as customer_username',
+                'transactions.created_at',
+            ]);
+
+        return view('transaction.detail', [
+            'transaction' => $transaction,
+        ]);
+    }
+
     public function store(): RedirectResponse
     {
         $pickUpMethod = PickUpMethod::DELIVERY;
@@ -64,5 +83,26 @@ class TransactionController extends Controller
         ]);
 
         return redirect()->route('shop.show', ['id' => $this->request->shop_id]);
+    }
+
+    public function updateProgress(int $id): RedirectResponse
+    {
+        $transactionStatus = TransactionStatusHistory::find($id);
+        $transactionStatus->status = $this->request->transaction_status;
+        $transactionStatus->description = $this->request->description;
+        $transactionStatus->image = $this->uploadImage($this->request->file('image'));
+        $transactionStatus->save();
+
+        return redirect()->route('transaction.show', ['id' => $id]);
+    }
+
+    private function uploadImage(?UploadedFile $file): string
+    {
+        if (!$file) {
+            return '';
+        }
+        $filename = date('YmdHi') . $file->getClientOriginalName();
+        $file->move(public_path('/upload/image'), $filename);
+        return $filename;
     }
 }
