@@ -35,15 +35,25 @@
     </div>
 
     <div class="rounded-[11px] bg-white mt-5 p-4">
+        @if(!$transaction)
         <h3 class="text-lg font-bold">Pilih Metode Pengambilan</h3>
         <div>
             <input type="radio" value="1" name="pickup_method" checked> Pickup
             <input type="radio" value="2" name="pickup_method"> Home Service
         </div>
-        <p class="italic text-xs mt-3">Setelah tombol pesan diklik, silakan menunggu tukan service konfirmasi dan akan chat alamat Anda.</p>
-        <div class="flex mt-4">
+        <p class="italic text-xs mt-3">Setelah tombol pesan diklik, silakan menunggu tukan service konfirmasi dan akan
+            chat alamat Anda.</p>
+
+        <form method="POST" action="{{ route('transaction.store') }}" class="flex mt-4">
+            @csrf
+            <input type="hidden" name="shop_id" value="{{ $shop->id }}">
             <x-primary-button class="ml-auto">Pesan</x-primary-button>
-        </div>
+        </form>
+        @else
+            <h3 class="text-lg font-bold">Status pemeasanan</h3>
+            <p>Pemesanan pada toko ini sedang menunggu konfirmasi dari pemiliki toko</p>
+        @endif
+
     </div>
 
 
