@@ -44,10 +44,10 @@
 {{--                </div>--}}
                 @foreach($transaction->progress_histories as $history)
                     <div class="flex mt-5">
-                        <div class="w-[20px] h-[20px] bg-white rounded-full z-10 flex items-center justify-center">
-                            <div class="w-[13px] h-[13px] bg-blue-primary rounded-full"></div>
+                        <div class="w-[20px] h-[20px] bg-white rounded-full z-10 flex items-center justify-center absolute">
+                            <div class="w-[13px] h-[13px] bg-blue-primary rounded-full top-[2px]"></div>
                         </div>
-                        <div class="ml-2">
+                        <div class="ml-5">
                             @switch($history->status)
                                 @case(\App\Http\Enum\TransactionStatus::PICK_UP_PROCESS->name)
                                     <p>Proses pick up</p>
