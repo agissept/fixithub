@@ -21,6 +21,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/images/{filename}', function ($filename) {
+    return response()->file(public_path('upload/image/' . $filename));
+})->where('path', '.*');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
@@ -32,7 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/shops', [ShopController::class, 'show'])->name('shop.show');
     Route::put('/shop', [ShopController::class, 'update'])->name('shop.update');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
