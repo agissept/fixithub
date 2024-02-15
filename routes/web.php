@@ -23,7 +23,8 @@ Route::get('/', function () {
 
 Route::get('/images/{filename}', function ($filename) {
     return response()->file(public_path('upload/image/' . $filename));
-})->where('path', '.*');
+})->where('path', '.*')
+->name('images');
 
 
 Route::middleware('auth')->group(function () {
@@ -37,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/shops', [ShopController::class, 'index'])->name('shop.index');
+    Route::get('/shops/{id}', [ShopController::class, 'show'])->name('shop.show');
     Route::put('/shop', [ShopController::class, 'update'])->name('shop.update');
 });
 
