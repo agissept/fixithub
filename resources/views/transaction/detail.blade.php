@@ -17,7 +17,6 @@
                 <a class="bg-blue-primary mt-5 ml-auto text-white px-4 py-2 rounded-[4px]"
                    href="https://wa.me/{{ $transaction->phone_number }}">Chat</a>
             @endif
-
         </div>
     </div>
 
@@ -100,7 +99,7 @@
                 @endforeach
             </div>
         </div>
-        @if(auth()->user()->role === \App\Http\Enum\UserRole::SERVICE_OWNER->value)
+        @if(auth()->user()->role === \App\Http\Enum\UserRole::SERVICE_OWNER->value && $transaction->status !== \App\Http\Enum\TransactionStatus::DONE->name)
             <form class=" bg-white rounded-[11px] p-5 mt-5 block" method="POST"
                   action="{{route('transaction.update.progress', [$transaction->id])}}"
                   enctype="multipart/form-data">
