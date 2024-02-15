@@ -56,6 +56,7 @@ class ShopController extends Controller
         $shop = Shop::query()
             ->join('users', 'shops.user_id', '=', 'users.id')
             ->where('role', 2)
+            ->where('user_id', Auth::id())
             ->first('shops.id');
 
         $certificateImage = $this->request->file('certificate_image');
