@@ -57,6 +57,12 @@ class TransactionController extends Controller
                 'transactions.created_at',
             ]);
 
+        $transaction->status = TransactionStatusHistory::query()
+            ->where('transaction_id', $id)
+            ->orderBy('id', 'desc')
+            ->first()
+            ->status;
+
         return view('transaction.detail', [
             'transaction' => $transaction,
         ]);
