@@ -39,5 +39,10 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+
+        <div class="mt-5 text-center">
+            <div>Belum punya akun?</div>
+            <a href="{{ route('register') }}" ><strong class="color-blue-primary font-bold">Daftar</strong></a>
+        </div>
     </form>
 </x-guest-layout>
