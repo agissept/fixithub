@@ -1,16 +1,17 @@
 <x-app-layout>
     <div class="p-[22px] flex flex-col">
+        @if(auth()->user()->role === \App\Http\Enum\UserRole::CUSTOMER)
+            <x-text-input placeholder="Cari tempat service.." class="mx-auto w-full mt-2"></x-text-input>
 
-        <x-text-input placeholder="Cari tempat service.." class="mx-auto w-full mt-2"></x-text-input>
-
-
-        <div class="rounded-[12px] mt-5 bg-blue-primary p-[23px]">
-            <h3 class="font-bold text-white text-[18px]">Tempat Service</h3>
-            <p class="text-white mt-3">Punya masalah gadget? <br> Yuk cari tempat service di sini</p>
-            <div class="flex">
-                <a href="{{ route('shop.index') }}" class="ml-auto text-white border border-white rounded-[4px] px-[20px] py-[10px] mt-5">Lihat</a>
+            <div class="rounded-[12px] mt-5 bg-blue-primary p-[23px]">
+                <h3 class="font-bold text-white text-[18px]">Tempat Service</h3>
+                <p class="text-white mt-3">Punya masalah gadget? <br> Yuk cari tempat service di sini</p>
+                <div class="flex">
+                    <a href="{{ route('shop.index') }}"
+                       class="ml-auto text-white border border-white rounded-[4px] px-[20px] py-[10px] mt-5">Lihat</a>
+                </div>
             </div>
-        </div>
+        @endif
 
         <form action="{{{route('threads.store')}}}" method="POST" class="flex flex-col">
             @csrf
