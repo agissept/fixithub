@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shop;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -14,6 +17,20 @@ class ShopController extends Controller
     public function __construct(
         private readonly Request $request
     ) {
+    }
+
+    function show(
+    ): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $query = $this->request->query('query');
+        $shops = Shop::query()->where('name', 'like', "%$query%")
+            ->orWhere('address', 'like', "%$query%")
+            ->limit(100)
+            ->get();
+
+        return view('shop', [
+            'shops' => $shops
+        ]);
     }
 
     public function update(): RedirectResponse
