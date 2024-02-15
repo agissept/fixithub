@@ -48,9 +48,9 @@ class ShopController extends Controller
                 'user_id' => Auth::id(),
                 'name' => $this->request->shop_name,
                 'phone_number' => $this->request->phone_number,
-                'description' => $this->uploadImage($certificateImage),
+                'description' => $this->request->description,
                 'banner_image' => $this->uploadImage($bannerImage),
-                'certificate_image' => $certificateImage,
+                'certificate_image' => $this->uploadImage($certificateImage),
                 'address' => $this->request->address,
                 'coordinate' => $this->request->coordinate,
             ]);
