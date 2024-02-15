@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Enum\TransactionStatus;
 use App\Models\Shop;
+use App\Models\Transaction;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -36,8 +38,16 @@ class ShopController extends Controller
     public function show($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $shop = Shop::query()->where('id', $id)->first();
+        $transaction = Transaction::query()
+            ->join('transaction_status_histories', 'transactions.id', '=', 'transaction_status_histories.transaction_id')
+            ->where('user_id', Auth::id())
+            ->where('shop_id', $id)
+            ->where('status', TransactionStatus::WAITING_CONFIRMATION->name)
+            ->first();
+
         return view('shop.detail', [
-            'shop' => $shop
+            'shop' => $shop,
+            'transaction' => $transaction
         ]);
     }
 
