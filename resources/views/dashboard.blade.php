@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="p-[22px] flex flex-col">
-        @if(auth()->user()->role === \App\Http\Enum\UserRole::CUSTOMER)
+        @if(auth()->user()->role === \App\Http\Enum\UserRole::CUSTOMER->value)
             <x-text-input placeholder="Cari tempat service.." class="mx-auto w-full mt-2"></x-text-input>
 
             <div class="rounded-[12px] mt-5 bg-blue-primary p-[23px]">
