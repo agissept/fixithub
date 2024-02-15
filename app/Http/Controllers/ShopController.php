@@ -19,7 +19,7 @@ class ShopController extends Controller
     ) {
     }
 
-    function index(
+    public function index(
     ): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $query = $this->request->query('query');
@@ -28,8 +28,16 @@ class ShopController extends Controller
             ->limit(100)
             ->get();
 
-        return view('shop', [
+        return view('shop.index', [
             'shops' => $shops
+        ]);
+    }
+
+    public function show($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $shop = Shop::query()->where('id', $id)->first();
+        return view('shop.detail', [
+            'shop' => $shop
         ]);
     }
 
