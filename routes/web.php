@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/shop', [ShopController::class, 'update'])->name('shop.update');
 
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transaction.index');
+    Route::get('/transactions/{id}', [TransactionController::class, 'show'])->name('transaction.show');
+    Route::post('/transactions/{id}/updateprogress', [TransactionController::class, 'updateProgress'])->name('transaction.update.progress');
     Route::post('/transaction/store', [TransactionController::class, 'store'])->name('transaction.store');
 });
 
