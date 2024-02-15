@@ -32,7 +32,7 @@
                             class="text-[11px] text-center w-[70px] bg-blue-primary text-white rounded-[4px]">{{$transaction->status ?? 'empty'}}</div>
                     @endif
 
-                    <a href="#" class="font-bold text-[12px] color-blue-primary mt-12 block">Lihat Detail</a>
+                    <a href="{{route('transaction.show', ['id' => $transaction->id])}}" class="font-bold text-[12px] color-blue-primary mt-12 block">Lihat Detail</a>
                 </div>
             </div>
         @endforeach
