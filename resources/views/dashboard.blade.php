@@ -8,7 +8,7 @@
             <h3 class="font-bold text-white text-[18px]">Tempat Service</h3>
             <p class="text-white mt-3">Punya masalah gadget? <br> Yuk cari tempat service di sini</p>
             <div class="flex">
-                <button class="ml-auto text-white border border-white rounded-[4px] px-[20px] py-[10px] mt-5">Lihat</button>
+                <a href="{{ route('shop.show') }}" class="ml-auto text-white border border-white rounded-[4px] px-[20px] py-[10px] mt-5">Lihat</a>
             </div>
         </div>
 
