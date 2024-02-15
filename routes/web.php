@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ThreadController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/shops', [ShopController::class, 'index'])->name('shop.index');
     Route::get('/shops/{id}', [ShopController::class, 'show'])->name('shop.show');
     Route::put('/shop', [ShopController::class, 'update'])->name('shop.update');
+
+    Route::post('/transaction/store', [TransactionController::class, 'store'])->name('transaction.store');
 });
 
 require __DIR__ . '/auth.php';
