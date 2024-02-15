@@ -19,7 +19,7 @@ class ShopController extends Controller
     ) {
     }
 
-    function show(
+    function index(
     ): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $query = $this->request->query('query');

@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/shops', [ShopController::class, 'show'])->name('shop.show');
+    Route::get('/shops', [ShopController::class, 'index'])->name('shop.index');
     Route::put('/shop', [ShopController::class, 'update'])->name('shop.update');
 });
 
