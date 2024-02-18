@@ -33,7 +33,7 @@
 
                     </h3>
                     @if(auth()->user()->role === \App\Http\Enum\UserRole::SERVICE_OWNER->value)
-                        <p class="text-sm">{{ $transaction->customer_phone_number ?? '089533665544' }}</p>
+                        <p class="text-sm">{{ $transaction->customer_phone_number }}</p>
                     @endif
                     <p class="text-sm">{{ $transaction->created_at }}</p>
                 </div>

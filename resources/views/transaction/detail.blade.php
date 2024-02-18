@@ -6,8 +6,8 @@
     <div class="bg-white rounded-[11px] p-5">
         <h2 class="color-blue-primary text-[21px] font-bold">Detail Pemesan</h2>
         <p class="font-bold mt-4">{{ $transaction->customer_username }}</p>
-        <p class="mt-1">{{ $transaction->phone_number ?? '086546655113355' }}</p>
-        <p class="mt-1">{{ $transaction->customer_address ?? 'Jl.Siliwangi Desa Cikiray RT/01 RW/02, SUKABUMI, CIPETEY, JAWA BARAT, ID, 43152' }}</p>
+        <p class="mt-1">{{ $transaction->customer_phone_number }}</p>
+        <p class="mt-1">{{ $transaction->customer_address }}</p>
         <hr>
         <div class="flex">
             @if(auth()->user()->role === \App\Http\Enum\UserRole::CUSTOMER->value)

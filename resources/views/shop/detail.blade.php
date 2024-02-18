@@ -36,7 +36,7 @@
 
     @if(auth()->user()->phone_number && auth()->user()->address)
         <div class="rounded-[11px] bg-white mt-5 p-4">
-            @if(!$transaction)
+            @if(!$transaction || $transaction->status !== \App\Http\Enum\TransactionStatus::WAITING_CONFIRMATION->name)
                 <h3 class="text-lg font-bold">Pilih Metode Pengambilan</h3>
                 <div>
                     <input type="radio" value="1" name="pickup_method" checked> Pickup
