@@ -17,7 +17,7 @@
             @csrf
             <textarea class="resize-none w-full rounded-[12px] border-gray-200 h-[150px] mt-[22px]"
                       placeholder="Posting masalah gadget kamu di sini!"
-                      name="thread_content"></textarea>
+                      name="thread_content" required></textarea>
 
             <x-primary-button class="ml-auto mt-3 w-fit">Posting</x-primary-button>
         </form>
