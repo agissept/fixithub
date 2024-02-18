@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\TransactionController;
@@ -46,6 +47,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/transactions/{id}', [TransactionController::class, 'show'])->name('transaction.show');
     Route::post('/transactions/{id}/updateprogress', [TransactionController::class, 'updateProgress'])->name('transaction.update.progress');
     Route::post('/transaction/store', [TransactionController::class, 'store'])->name('transaction.store');
+
+    Route::get('transactions/{id}/review', [ReviewController::class, 'indexAddReview'])->name('transaction.add-review.index');
+    Route::post('transactions/{id}/review', [ReviewController::class, 'addReview'])->name('transaction.add-review');
 });
 
 require __DIR__ . '/auth.php';
