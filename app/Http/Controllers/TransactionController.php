@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Enum\PickUpMethod;
 use App\Http\Enum\TransactionStatus;
 use App\Http\Enum\UserRole;
+use App\Models\Reviews;
 use App\Models\Transaction;
 use App\Models\TransactionStatusHistory;
 use Illuminate\Contracts\View\Factory;
@@ -81,6 +82,8 @@ class TransactionController extends Controller
         $transaction->progress_histories = TransactionStatusHistory::query()
             ->where('transaction_id', $id)
             ->get();
+
+        $transaction->review = Reviews::query()->where('transaction_id', $id)->first();
 
         return view('transaction.detail', [
             'transaction' => $transaction,

@@ -147,10 +147,33 @@
         @endif
     @endif
 
-    @if($transaction->status === \App\Http\Enum\TransactionStatus::DONE->name && auth()->user()->role === \App\Http\Enum\UserRole::CUSTOMER->value)
-        <a href="{{ route('transaction.add-review.index', ['id'=> $transaction->id]) }}"
-           class="items-center bg-blue-primary text-white block px-4 py-2 rounded-[4px] text-center mt-5">Berikan review</a>
+    @if(auth()->user()->role === \App\Http\Enum\UserRole::CUSTOMER->value)
+        @if($transaction->review)
+            <div class="bg-white rounded-[11px] p-5 mt-5">
+                <h2 class="color-blue-primary text-[21px] font-bold">Review</h2>
+
+                <div class="mt-4">
+                    <select class="star-rating" data-options='{"clearable":false, "tooltip":false}' required
+                            name="rating" disabled>
+                        <option value="5" @selected($transaction->review->rating === 5)>Excellent</option>
+                        <option value="4" @selected($transaction->review->rating === 4)>Very Good</option>
+                        <option value="3" @selected($transaction->review->rating === 3)>Average</option>
+                        <option value="2" @selected($transaction->review->rating === 2)>Poor</option>
+                        <option value="1" @selected($transaction->review->rating === 1)>Terrible</option>
+                    </select>
+                </div>
+
+                <p class="mt-4">{{ $transaction->review->review }}</p>
+
+            </div>
+        @elseif($transaction->status === \App\Http\Enum\TransactionStatus::DONE->name)
+            <a href="{{ route('transaction.add-review.index', ['id'=> $transaction->id]) }}"
+               class="items-center bg-blue-primary text-white block px-4 py-2 rounded-[4px] text-center mt-5">Berikan
+                review</a>
+        @endif
     @endif
+
+    @vite('resources/js/review.js')
 
 
 </x-app-layout>
