@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/transaction/store', [TransactionController::class, 'store'])->name('transaction.store');
 
     Route::get('transactions/{id}/review', [ReviewController::class, 'indexAddReview'])->name('transaction.add-review.index');
-    Route::post('transactions/{id}/review', [ReviewController::class, 'addReview'])->name('transaction.add-review');
+    Route::post('transactions/{id}/review', [ReviewController::class, 'store'])->name('transaction.add-review');
 });
 
 require __DIR__ . '/auth.php';
