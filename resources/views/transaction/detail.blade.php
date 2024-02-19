@@ -147,6 +147,11 @@
         @endif
     @endif
 
+    @if($transaction->status === \App\Http\Enum\TransactionStatus::DONE->name && auth()->user()->role === \App\Http\Enum\UserRole::CUSTOMER->value)
+        <a href="{{ route('transaction.add-review.index', ['id'=> $transaction->id]) }}"
+           class="items-center bg-blue-primary text-white block px-4 py-2 rounded-[4px] text-center mt-5">Berikan review</a>
+    @endif
+
 
 </x-app-layout>
 
