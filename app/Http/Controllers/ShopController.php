@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Enum\TransactionStatus;
+use App\Models\Reviews;
 use App\Models\Shop;
 use App\Models\Transaction;
 use Illuminate\Contracts\View\Factory;
@@ -44,6 +45,12 @@ class ShopController extends Controller
             ->where('shop_id', $id)
             ->orderBy('transaction_status_histories.id', 'desc')
             ->first();
+
+        $countReview = Reviews::query()->join('transactions', 'reviews.transaction_id', '=', 'transactions.id')
+            ->where('shop_id', $id)
+            ->count();
+
+        $shop->count_review = $countReview;
 
         return view('shop.detail', [
             'shop' => $shop,

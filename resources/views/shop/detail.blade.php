@@ -17,6 +17,11 @@
             </button>
         </div>
         <hr>
+        <div class="mt-4 px-3 flex justify-between items-center">
+            <strong>{{$shop->count_review}} Ulasan</strong>
+            <a href="{{ route('review.index', ['shop_id' => $shop->id]) }}" class="color-blue-primary mr-3">Lihat</a>
+        </div>
+        <hr>
 
         <div class="flex">
             <a href="https://wa.me/{{ $shop->phone_number }}"
