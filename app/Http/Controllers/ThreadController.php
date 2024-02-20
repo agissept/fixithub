@@ -27,6 +27,7 @@ class ThreadController extends Controller
                 'threads.content as content',
                 'threads.parent_id as parent_id',
                 'users.name as username',
+                'threads.image as image',
             ]);
 
         $parentThread = $threads->where('id', $id)->first();

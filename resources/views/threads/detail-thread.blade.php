@@ -6,6 +6,10 @@
         <p class="text-[24px] pt-[12px]">
             {{{ $thread->content }}}
         </p>
+        @if($thread->image)
+            <img src="{{ route('images', ['filename' => $thread->image]) }}"
+                 class="w-full mt-3 object-cover rounded-[12px]"/>
+        @endif
     </div>
 
     <div class="p-[22px]">
