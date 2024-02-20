@@ -6,6 +6,7 @@ use App\Models\Thread;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 class ThreadController extends Controller
 {
@@ -42,7 +43,8 @@ class ThreadController extends Controller
         Thread::create([
             'user_id' => auth()->id(),
             'content' => $this->request->thread_content,
-            'parent_id' => $parentId
+            'parent_id' => $parentId,
+            'image' => $this->uploadImage($this->request->file('thread_image'))
         ]);
 
         if ($parentId){
@@ -50,5 +52,15 @@ class ThreadController extends Controller
         }
 
         return redirect()->route('dashboard');
+    }
+
+    private function uploadImage(?UploadedFile $file): string
+    {
+        if (!$file) {
+            return '';
+        }
+        $filename = date('YmdHi') . $file->getClientOriginalName();
+        $file->move(public_path('/upload/image'), $filename);
+        return $filename;
     }
 }

@@ -15,7 +15,7 @@
 
         <div x-data="" class="p-5 rounded-[12px] bg-white mt-[22px]">
             <h2 class="color-blue-primary font-bold text-xl">Thread</h2>
-            <form action="{{{route('threads.store')}}}" method="POST" class="flex flex-col mt-5">
+            <form action="{{{route('threads.store')}}}" method="POST" class="flex flex-col mt-5" enctype="multipart/form-data">
                 @csrf
                 <textarea class="resize-none w-full rounded-[12px] border-gray-200 h-[150px] "
                           placeholder="Posting masalah gadget kamu di sini!"
