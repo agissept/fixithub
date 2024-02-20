@@ -15,7 +15,8 @@
 
         <div x-data="" class="p-5 rounded-[12px] bg-white mt-[22px]">
             <h2 class="color-blue-primary font-bold text-xl">Thread</h2>
-            <form action="{{{route('threads.store')}}}" method="POST" class="flex flex-col mt-5" enctype="multipart/form-data">
+            <form action="{{{route('threads.store')}}}" method="POST" class="flex flex-col mt-5"
+                  enctype="multipart/form-data">
                 @csrf
                 <textarea class="resize-none w-full rounded-[12px] border-gray-200 h-[150px] "
                           placeholder="Posting masalah gadget kamu di sini!"
@@ -44,6 +45,10 @@
                     <p class="mt-3">
                         {{{ $thread->content }}}
                     </p>
+                    @if($thread->image)
+                        <img src="{{ route('images', ['filename' => $thread->image]) }}"
+                             class="w-full mt-3 object-cover rounded-[12px]"/>
+                    @endif
                 </a>
             @endforeach
         </div>
