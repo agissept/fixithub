@@ -13,14 +13,17 @@
             </div>
         @endif
 
-        <form action="{{{route('threads.store')}}}" method="POST" class="flex flex-col">
-            @csrf
-            <textarea class="resize-none w-full rounded-[12px] border-gray-200 h-[150px] mt-[22px]"
-                      placeholder="Posting masalah gadget kamu di sini!"
-                      name="thread_content" required></textarea>
+        <div class="p-5 rounded-[12px] bg-white mt-[22px]">
+            <h2 class="color-blue-primary font-bold text-xl">Thread</h2>
+            <form action="{{{route('threads.store')}}}" method="POST" class="flex flex-col mt-5">
+                @csrf
+                <textarea class="resize-none w-full rounded-[12px] border-gray-200 h-[150px] "
+                          placeholder="Posting masalah gadget kamu di sini!"
+                          name="thread_content" required></textarea>
 
-            <x-primary-button class="ml-auto mt-3 w-fit">Posting</x-primary-button>
-        </form>
+                <x-primary-button class="ml-auto mt-3 w-fit">Posting</x-primary-button>
+            </form>
+        </div>
 
         <div>
             @foreach($threads as $thread)
