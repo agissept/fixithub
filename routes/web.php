@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/transactions/{id}/updateprogress', [TransactionController::class, 'updateProgress'])->name('transaction.update.progress');
     Route::post('/transaction/store', [TransactionController::class, 'store'])->name('transaction.store');
 
+    Route::get('shops/{shop_id}/reviews', [ReviewController::class, 'index'])->name('review.index');
     Route::get('transactions/{id}/review', [ReviewController::class, 'indexAddReview'])->name('transaction.add-review.index');
     Route::post('transactions/{id}/review', [ReviewController::class, 'store'])->name('transaction.add-review');
 });
