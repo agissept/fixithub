@@ -24,7 +24,7 @@
         @endforeach
     </div>
 
-    <form class="fixed bottom-0 bg-white w-full shadow-2xl p-[12px] flex" method="POST"
+    <form class="fixed bottom-0 left-0 bg-white w-full shadow-2xl p-[12px] flex" method="POST"
           action="{{{ route('threads.store', ['id' => $thread->id]) }}}">
         @csrf
         <x-text-input class="rounded-e-none" name="thread_content" placeholder="Komentar..."></x-text-input>
