@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import "star-rating.js/dist/star-rating.css";
 
 @tailwind base;
 @tailwind components;

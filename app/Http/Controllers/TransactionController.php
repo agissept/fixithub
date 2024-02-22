@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Enum\PickUpMethod;
 use App\Http\Enum\TransactionStatus;
 use App\Http\Enum\UserRole;
+use App\Models\Reviews;
 use App\Models\Transaction;
 use App\Models\TransactionStatusHistory;
 use Illuminate\Contracts\View\Factory;
@@ -40,6 +41,8 @@ class TransactionController extends Controller
             ->get([
                 'transactions.id',
                 'users.name as customer_username',
+                'users.name as customer_phone_number',
+                'users.address as customer_address',
                 'shops.name as shop_name',
                 'transactions.created_at',
                 DB::raw('(SELECT status FROM transaction_status_histories WHERE transaction_id = transactions.id ORDER BY id DESC LIMIT 1) as status')
@@ -64,6 +67,8 @@ class TransactionController extends Controller
         $transaction = $transaction->first([
             'transactions.id',
             'users.name as customer_username',
+            'users.name as customer_phone_number',
+            'users.address as customer_address',
             'transactions.created_at',
             'shops.phone_number as shop_phone_number',
         ]);
@@ -77,6 +82,8 @@ class TransactionController extends Controller
         $transaction->progress_histories = TransactionStatusHistory::query()
             ->where('transaction_id', $id)
             ->get();
+
+        $transaction->review = Reviews::query()->where('transaction_id', $id)->first();
 
         return view('transaction.detail', [
             'transaction' => $transaction,

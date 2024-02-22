@@ -42,7 +42,7 @@ class ShopController extends Controller
             ->join('transaction_status_histories', 'transactions.id', '=', 'transaction_status_histories.transaction_id')
             ->where('user_id', Auth::id())
             ->where('shop_id', $id)
-            ->where('status', TransactionStatus::WAITING_CONFIRMATION->name)
+            ->orderBy('transaction_status_histories.id', 'desc')
             ->first();
 
         return view('shop.detail', [

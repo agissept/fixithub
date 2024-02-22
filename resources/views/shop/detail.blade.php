@@ -34,27 +34,34 @@
                       disabled hidden/>
     </div>
 
-    <div class="rounded-[11px] bg-white mt-5 p-4">
-        @if(!$transaction)
-        <h3 class="text-lg font-bold">Pilih Metode Pengambilan</h3>
-        <div>
-            <input type="radio" value="1" name="pickup_method" checked> Pickup
-            <input type="radio" value="2" name="pickup_method"> Home Service
+    @if(auth()->user()->phone_number && auth()->user()->address)
+        <div class="rounded-[11px] bg-white mt-5 p-4">
+            @if(!$transaction || $transaction->status !== \App\Http\Enum\TransactionStatus::WAITING_CONFIRMATION->name)
+                <h3 class="text-lg font-bold">Pilih Metode Pengambilan</h3>
+                <div>
+                    <input type="radio" value="1" name="pickup_method" checked> Pickup
+                    <input type="radio" value="2" name="pickup_method"> Home Service
+                </div>
+                <p class="italic text-xs mt-3">Setelah tombol pesan diklik, silakan menunggu tukan service konfirmasi
+                    dan akan
+                    chat alamat Anda.</p>
+
+                <form method="POST" action="{{ route('transaction.store') }}" class="flex mt-4">
+                    @csrf
+                    <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+                    <x-primary-button class="ml-auto">Pesan</x-primary-button>
+                </form>
+            @else
+                <h3 class="text-lg font-bold">Status pemeasanan</h3>
+                <p>Pemesanan pada toko ini sedang menunggu konfirmasi dari pemiliki toko</p>
+            @endif
         </div>
-        <p class="italic text-xs mt-3">Setelah tombol pesan diklik, silakan menunggu tukan service konfirmasi dan akan
-            chat alamat Anda.</p>
-
-        <form method="POST" action="{{ route('transaction.store') }}" class="flex mt-4">
-            @csrf
-            <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-            <x-primary-button class="ml-auto">Pesan</x-primary-button>
-        </form>
-        @else
-            <h3 class="text-lg font-bold">Status pemeasanan</h3>
-            <p>Pemesanan pada toko ini sedang menunggu konfirmasi dari pemiliki toko</p>
-        @endif
-
-    </div>
+    @else
+        <div class="rounded-[11px] bg-white mt-5 p-4">
+            <h3 class="text-lg font-bold">Anda belum bisa melakukan pemesanan</h3>
+            <p>Silkakan isi alamat dan nomor telepon pada halaman profile untuk melakukan pemesanan</p>
+        </div>
+    @endif
 
 
     <script>
