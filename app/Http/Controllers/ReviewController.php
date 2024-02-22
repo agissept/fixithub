@@ -18,6 +18,20 @@ class ReviewController extends Controller
     ) {
     }
 
+    public function index($shopId): View|\Illuminate\Foundation\Application|Factory|Application
+    {
+        $reviews = Reviews::query()->join('transactions', 'transactions.id', '=', 'reviews.transaction_id')
+            ->join('users', 'users.id', '=', 'transactions.user_id')
+            ->where('transactions.shop_id', $shopId)
+            ->select([
+                'rating',
+                'review',
+                'users.name as reviewer_name',
+            ])
+            ->get();
+        return view('review.index', compact('reviews'));
+    }
+
     public function store($transactionId): RedirectResponse
     {
         Reviews::create([

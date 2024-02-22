@@ -6,6 +6,10 @@
         <p class="text-[24px] pt-[12px]">
             {{{ $thread->content }}}
         </p>
+        @if($thread->image)
+            <img src="{{ route('images', ['filename' => $thread->image]) }}"
+                 class="w-full mt-3 object-cover rounded-[12px]"/>
+        @endif
     </div>
 
     <div class="p-[22px]">
@@ -20,7 +24,7 @@
         @endforeach
     </div>
 
-    <form class="fixed bottom-0 bg-white w-full shadow-2xl p-[12px] flex" method="POST"
+    <form class="fixed bottom-0 left-0 bg-white w-full shadow-2xl p-[12px] flex" method="POST"
           action="{{{ route('threads.store', ['id' => $thread->id]) }}}">
         @csrf
         <x-text-input class="rounded-e-none" name="thread_content" placeholder="Komentar..."></x-text-input>

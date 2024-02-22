@@ -13,14 +13,29 @@
             </div>
         @endif
 
-        <form action="{{{route('threads.store')}}}" method="POST" class="flex flex-col">
-            @csrf
-            <textarea class="resize-none w-full rounded-[12px] border-gray-200 h-[150px] mt-[22px]"
-                      placeholder="Posting masalah gadget kamu di sini!"
-                      name="thread_content" required></textarea>
+        <div x-data="" class="p-5 rounded-[12px] bg-white mt-[22px]">
+            <h2 class="color-blue-primary font-bold text-xl">Thread</h2>
+            <form action="{{{route('threads.store')}}}" method="POST" class="flex flex-col mt-5"
+                  enctype="multipart/form-data">
+                @csrf
+                <textarea class="resize-none w-full rounded-[12px] border-gray-200 h-[150px] "
+                          placeholder="Posting masalah gadget kamu di sini!"
+                          name="thread_content" required></textarea>
+                <img id="thread-image-preview" class="w-full max-h-[200px] object-cover rounded-[12px] hidden mt-3"/>
 
-            <x-primary-button class="ml-auto mt-3 w-fit">Posting</x-primary-button>
-        </form>
+
+                <div class="flex justify-end items-center mt-5">
+                    <label for="thread-image"
+                           class="mr-3 px-4 py-2 bg-white border border-gray-300 text-gray-700 cursor-pointer rounded">
+                        Gambar +
+                    </label>
+                    <input type="file" id="thread-image" class="hidden" name="thread_image" accept="image/*"
+                           onchange="document.getElementById('thread-image-preview').classList.remove('hidden');document.getElementById('thread-image-preview').src = window.URL.createObjectURL(this.files[0])">
+
+                    <x-primary-button class="w-fit">Posting</x-primary-button>
+                </div>
+            </form>
+        </div>
 
         <div>
             @foreach($threads as $thread)
@@ -30,6 +45,10 @@
                     <p class="mt-3">
                         {{{ $thread->content }}}
                     </p>
+                    @if($thread->image)
+                        <img src="{{ route('images', ['filename' => $thread->image]) }}"
+                             class="w-full mt-3 object-cover rounded-[12px]"/>
+                    @endif
                 </a>
             @endforeach
         </div>

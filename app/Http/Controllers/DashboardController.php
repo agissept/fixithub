@@ -12,10 +12,12 @@ class DashboardController extends Controller
         $threads = Thread::query()
             ->join('users','users.id', '=', 'user_id')
             ->whereNull('parent_id')
+            ->orderBy('threads.id', 'desc')
             ->select([
                 'threads.id as id',
                 'users.name as username',
-                'content'
+                'content',
+                'image'
             ])
             ->get();
         return view('dashboard', [
